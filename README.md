@@ -30,7 +30,6 @@ In the output, you'll find options to open the app in a
 - **Modularity**: By splitting the code into self-contained modules, the architecture promotes reusability, easier testing, and better scalability as the app grows.
 - **Type Safety**: The use of TypeScript throughout the project ensures type safety, making the codebase more robust and reducing runtime errors.
 
-### Trade-offs:
 
 ### Trade-offs:
 
