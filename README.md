@@ -1,8 +1,4 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
-## Get started
+## Setup instructions
 
 1. Install dependencies
 
@@ -23,28 +19,28 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## Architectural Decisions and Trade-offs
 
-When you're ready, run:
+- **Folder Structure**: The project is organized into logical folders. Each folder is designed to encapsulate specific functionality:
+  - The `components` folder contains reusable UI components, each focused solely on its own logic and presentation.
+  - The `utils` folder includes helper functions and shared logic to avoid duplication and improve maintainability.
+  - The `types` file in the `utils` folder centralizes TypeScript type definitions, ensuring consistency and reducing the risk of type-related errors across the app.
+- **Modularity**: By splitting the code into self-contained modules, the architecture promotes reusability, easier testing, and better scalability as the app grows.
+- **Type Safety**: The use of TypeScript throughout the project ensures type safety, making the codebase more robust and reducing runtime errors.
 
-```bash
-npm run reset-project
-```
+### Trade-offs:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Trade-offs:
 
-## Learn more
+- **API Call Overhead**: The app requires multiple API calls (e.g., up to 20) to fetch individual stories or data, which can impact performance and increase loading times, especially on slower networks.
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Ideas for Improvement
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. **Error Handling**: Add better error handling for API calls and user interactions.
+2. **Testing**: Implement unit tests and integration tests.
+3. **Design improvement**: Improve the UI.
+4. **Accessibility**: Improve accessibility by adding proper ARIA roles and testing with screen readers.
