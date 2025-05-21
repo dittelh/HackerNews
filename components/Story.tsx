@@ -19,28 +19,27 @@ export default function Story({ story }: StoryProps) {
   }
 
   const openUrl = async (url: string) => {
-  const supported = await Linking.canOpenURL(url);
-  if (!supported) {
-    Alert.alert("Cannot open the link:", url);
-    return;
-  }
+    const supported = await Linking.canOpenURL(url);
+    if (!supported) {
+      Alert.alert("Cannot open the link:", url);
+      return;
+    }
 
-  Alert.alert(
-    "Open Link",
-    "Are you sure you want to open this link?",
-    [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Open",
-        onPress: async () => {
-          await Linking.openURL(url);
+    Alert.alert(
+      "Open Link",
+      "Are you sure you want to open this link?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Open",
+          onPress: async () => {
+            await Linking.openURL(url);
+          },
         },
-      },
-    ],
-    { cancelable: true }
-  );
-};
-
+      ],
+      { cancelable: true }
+    );
+  };
 
   return (
     <TouchableOpacity
@@ -48,18 +47,27 @@ export default function Story({ story }: StoryProps) {
       onPress={() => setIsDetailsVisible(!isDetailsVisible)}
       style={styles.container}
     >
-      <View style={styles.titleRow}>
-        <Text style={styles.title}>{story.title}</Text>
+      <View style={styles.cardView}>
+        <View style={styles.titleAndScoreContainer}>
+          <View>
+            <Text style={styles.title}>{story.title}</Text>
+          </View>
+
+          <View style={styles.scoreContainer}>
+            <Text style={styles.score}>Score: {story.score}</Text>
+            <Ionicons
+              name="star"
+              color="#FFD250"
+              size={16}
+              style={styles.icon}
+            />
+          </View>
+        </View>
         <Ionicons
           name={isDetailsVisible ? "chevron-up" : "chevron-down"}
           size={20}
           color="#888"
         />
-      </View>
-
-      <View style={styles.scoreContainer}>
-        <Text style={styles.score}>Score: {story.score}</Text>
-        <Ionicons name="star" color="#FFD250" size={16} style={styles.icon} />
       </View>
 
       {isDetailsVisible && (
@@ -76,6 +84,11 @@ export default function Story({ story }: StoryProps) {
 }
 
 const styles = StyleSheet.create({
+  cardView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   container: {
     marginBottom: 16,
     padding: 16,
@@ -87,10 +100,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
-  titleRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+  titleAndScoreContainer: {
+    maxWidth: "90%",
   },
   title: {
     fontWeight: "bold",
