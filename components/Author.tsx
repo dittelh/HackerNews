@@ -1,26 +1,18 @@
-import { AuthorDetails, AuthorProps } from "@/utils/types";
+import { useAuthorContext } from "@/context/AuthorContext";
+import { AuthorProps } from "@/utils/types";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function Author({ authorName }: AuthorProps) {
-  const [authorDetails, setAuthorDetails] = useState<AuthorDetails>();
+  const { authors, fetchAuthor } = useAuthorContext();
+  const authorDetails = authors[authorName];
 
   useEffect(() => {
-    const fetchAuthorDetails = async () => {
-      try {
-        const response = await fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${authorName}.json?print=pretty`
-        );
-        const data = await response.json();
-        setAuthorDetails(data);
-      } catch (error) {
-        console.error("Error fetching author details:", error);
-      }
-    };
-
-    fetchAuthorDetails();
-  }, []);
+    if (!authorDetails) {
+      fetchAuthor(authorName);
+    }
+  }, [authorName]);
 
   if (!authorDetails) {
     return <Text style={styles.loading}>Loading author details...</Text>;

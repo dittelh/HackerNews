@@ -18,3 +18,8 @@ export interface AuthorProps {
 export interface StoryProps {
   story: Story;
 }
+
+export interface AuthorContextType {
+  authors: Record<string, AuthorDetails>;
+  fetchAuthor: (authorName: string) => Promise<void>;
+}
