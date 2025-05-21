@@ -19,13 +19,28 @@ export default function Story({ story }: StoryProps) {
   }
 
   const openUrl = async (url: string) => {
-    const supported = await Linking.canOpenURL(url);
-    if (supported) {
-      await Linking.openURL(url);
-    } else {
-      Alert.alert("Cannot open the link:", url);
-    }
-  };
+  const supported = await Linking.canOpenURL(url);
+  if (!supported) {
+    Alert.alert("Cannot open the link:", url);
+    return;
+  }
+
+  Alert.alert(
+    "Open Link",
+    "Are you sure you want to open this link?",
+    [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Open",
+        onPress: async () => {
+          await Linking.openURL(url);
+        },
+      },
+    ],
+    { cancelable: true }
+  );
+};
+
 
   return (
     <TouchableOpacity
